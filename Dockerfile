@@ -20,9 +20,3 @@ RUN update-locale LANG=ja_JP.UTF-8
 RUN echo "Asia/Tokyo" > /etc/timezone
 RUN dpkg-reconfigure -f noninteractive tzdata
 
-RUN apt-get -y update \
- && apt-get -y install curl vim wget nkf \
- && apt-get -y autoclean \
- && apt-get -y autoremove \
- && rm -rf /var/lib/apt/lists/*
-

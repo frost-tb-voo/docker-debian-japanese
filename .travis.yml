@@ -6,7 +6,7 @@ services:
   - docker
 
 before_install:
-- docker pull debian/jessie
+- docker pull debian:jessie
 
 script:
 - docker build -t novsyama/debian-japanese .

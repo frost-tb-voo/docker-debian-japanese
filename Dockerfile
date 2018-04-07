@@ -1,5 +1,5 @@
 FROM debian:jessie
-MAINTAINER Novs Yama <aida-devflex@gmail.com>
+MAINTAINER Novs Yama
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL ja_JP.UTF-8

@@ -6,17 +6,17 @@ services:
   - docker
 
 before_install:
-- docker pull debian:jessie
+- docker pull debian:stretch
 
 script:
-- docker build -t novsyama/debian-japanese:jessie .
+- docker build -t novsyama/debian-japanese:stretch .
 - docker images
 
 deploy:
   provider: script
   script: bash push
   on:
-    branch: master
+    branch: stretch
 
 notifications:
   email: false

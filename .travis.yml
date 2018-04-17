@@ -9,7 +9,7 @@ before_install:
 - docker pull debian:jessie
 
 script:
-- docker build -t novsyama/debian-japanese .
+- docker build -t novsyama/debian-japanese:jessie .
 - docker images
 
 deploy:

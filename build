@@ -1,4 +1,4 @@
 #!/bin/sh
 
-docker build -t novsyama/debian-japanese:jessie .
+docker build -t novsyama/debian-japanese:stretch .
 

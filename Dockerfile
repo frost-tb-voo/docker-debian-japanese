@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 MAINTAINER Novs Yama
 
 ENV DEBIAN_FRONTEND noninteractive

@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 MAINTAINER Novs Yama
 
 ENV DEBIAN_FRONTEND noninteractive

@@ -1,5 +1,5 @@
 # docker-debian-japanese
-![](https://img.shields.io/travis/frost-tb-voo/docker-debian-japanese/stretch.svg?style=flat-square)
+![](https://img.shields.io/travis/frost-tb-voo/docker-debian-japanese/buster.svg?style=flat-square)
 ![GitHub stars](https://img.shields.io/github/stars/frost-tb-voo/docker-debian-japanese.svg?style=flat-square)
 ![GitHub license](https://img.shields.io/github/license/frost-tb-voo/docker-debian-japanese.svg?style=flat-square)
 ![Docker pulls](https://img.shields.io/docker/pulls/novsyama/debian-japanese.svg?style=flat-square)

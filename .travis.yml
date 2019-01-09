@@ -9,7 +9,7 @@ before_install:
 - docker pull debian:stretch
 
 script:
-- docker build -t novsyama/debian-japanese:stretch .
+- docker build -t novsyama/debian-japanese:stretch --build-arg VCS_REF=`git rev-parse --short HEAD` .
 - docker images
 
 deploy:

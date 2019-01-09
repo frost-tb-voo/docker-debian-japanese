@@ -1,6 +1,10 @@
 FROM debian:stretch
 MAINTAINER Novs Yama
 
+ARG VCS_REF
+LABEL org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-url="https://github.com/frost-tb-voo/docker-debian-japanese"
+
 ENV DEBIAN_FRONTEND noninteractive
 ENV LC_ALL ja_JP.UTF-8
 ENV LANG ${LC_ALL}

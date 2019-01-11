@@ -3,6 +3,8 @@
 ![GitHub stars](https://img.shields.io/github/stars/frost-tb-voo/docker-debian-japanese.svg?style=flat-square)
 ![GitHub license](https://img.shields.io/github/license/frost-tb-voo/docker-debian-japanese.svg?style=flat-square)
 ![Docker pulls](https://img.shields.io/docker/pulls/novsyama/debian-japanese.svg?style=flat-square)
+[![](https://images.microbadger.com/badges/image/novsyama/debian-japanese:stretch.svg)](https://microbadger.com/images/novsyama/debian-japanese:stretch "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/novsyama/debian-japanese:stretch.svg)](https://microbadger.com/images/novsyama/debian-japanese:stretch "Get your own version badge on microbadger.com")
 
 A debian image which set ja_JP.UTF-8 locale and Asia/Tokyo timezone.
 See [novsyama/debian-japanese](https://hub.docker.com/r/novsyama/debian-japanese/)

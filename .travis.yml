@@ -9,7 +9,7 @@ before_install:
 - docker pull debian:jessie
 
 script:
-- docker build -t novsyama/debian-japanese:jessie .
+- docker build -t novsyama/debian-japanese:jessie --build-arg VCS_REF=`git rev-parse --short HEAD` .
 - docker images
 
 deploy:

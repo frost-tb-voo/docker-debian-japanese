@@ -15,7 +15,7 @@ deploy:
   provider: script
   script: bash push
   on:
-    branch: jessie
+    branch: ${RELEASE}
 
 notifications:
   email: false

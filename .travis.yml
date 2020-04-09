@@ -5,18 +5,17 @@ language: ruby
 services:
   - docker
 
-before_install:
-- docker pull debian:buster
+env:
+  - RELEASE=buster
 
 script:
-- docker build -t novsyama/debian-japanese:buster .
-- docker images
+- bash build
 
 deploy:
   provider: script
   script: bash push
   on:
-    branch: buster
+    branch: ${RELEASE}
 
 notifications:
   email: false

@@ -1,4 +1,7 @@
 #!/bin/bash
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-docker push novsyama/debian-japanese:buster
 
+TAG=`date +%Y%m%d`
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+docker tag novsyama/debian-japanese:${RELEASE} novsyama/debian-japanese:${RELEASE}-${TAG}
+docker push novsyama/debian-japanese:${RELEASE}-${TAG}
+docker push novsyama/debian-japanese:${RELEASE}

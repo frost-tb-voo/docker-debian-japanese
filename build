@@ -1,4 +1,16 @@
 #!/bin/sh
 
-docker build -t novsyama/debian-japanese --build-arg VCS_REF=`git rev-parse --short HEAD` .
+DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
+cd ${DIR}
 
+if [[ -z ${RELEASE} ]]; then
+    RELEASE=stretch
+fi
+
+docker pull debian:${RELEASE}
+docker build -t novsyama/debian-japanese:${RELEASE} \
+ --build-arg VCS_REF=`git rev-parse --short HEAD` \
+ --build-arg RELEASE=${RELEASE} \
+ .
+
+docker images novsyama/debian-japanese

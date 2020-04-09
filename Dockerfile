@@ -1,4 +1,6 @@
-FROM debian:stretch
+ARG RELEASE
+
+FROM debian:${RELEASE}
 ARG VCS_REF
 
 LABEL maintainer="Novs Yama"

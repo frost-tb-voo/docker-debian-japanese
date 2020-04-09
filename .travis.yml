@@ -5,12 +5,11 @@ language: ruby
 services:
   - docker
 
-before_install:
-- docker pull debian:stretch
+env:
+  - RELEASE=stretch
 
 script:
-- docker build -t novsyama/debian-japanese --build-arg VCS_REF=`git rev-parse --short HEAD` .
-- docker images
+- bash build
 
 deploy:
   provider: script

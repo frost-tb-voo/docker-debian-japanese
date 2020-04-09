@@ -15,7 +15,7 @@ deploy:
   provider: script
   script: bash push
   on:
-    branch: master
+    branch: ${RELEASE}
 
 notifications:
   email: false

@@ -1,5 +1,11 @@
-FROM debian:jessie
-MAINTAINER Novs Yama
+ARG RELEASE
+
+FROM debian:${RELEASE}
+ARG VCS_REF
+
+LABEL maintainer="Novs Yama"
+LABEL org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-url="https://github.com/frost-tb-voo/docker-debian-japanese"
 
 ARG VCS_REF
 LABEL org.label-schema.vcs-ref=$VCS_REF \

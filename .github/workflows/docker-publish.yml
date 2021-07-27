@@ -51,7 +51,9 @@ jobs:
       - name: Set distribution code
         id: release
         run: |
-          if [[ "${GITHUB_EVENT_NAME}" != "schedule" ]];then
+          if [[ -n "${GITHUB_BASE_REF}" ]];then
+            echo "::set-output name=name::${GITHUB_BASE_REF}"
+          elif [[ "${GITHUB_EVENT_NAME}" != "schedule" ]];then
             echo "::set-output name=name::${GITHUB_REF#refs/heads/}"
           elif [[ `date +%a` = "Mon" ]];then
             echo "::set-output name=name::bullseye"

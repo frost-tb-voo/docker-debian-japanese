@@ -1,0 +1,111 @@
+name: Docker
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+on:
+  push:
+    branches: [ buster, stretch, bullseye ]
+    paths-ignore:
+      - LICENSE
+      - README.md
+      - build
+      - push
+      - .gitignore
+      - .travis.yml
+      - .git
+      - hooks
+  pull_request:
+    branches: [ buster, stretch, bullseye ]
+    paths-ignore:
+      - LICENSE
+      - README.md
+      - build
+      - push
+      - .gitignore
+      - .travis.yml
+      - .git
+      - hooks
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '13 3 * * 1-3'
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.actor }}/debian-japanese
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Set distribution code
+        id: release
+        run: |
+          if [[ -n "${GITHUB_BASE_REF}" ]];then
+            echo "::set-output name=name::${GITHUB_BASE_REF}"
+          elif [[ "${GITHUB_EVENT_NAME}" != "schedule" ]];then
+            echo "::set-output name=name::${GITHUB_REF#refs/heads/}"
+          elif [[ `date +%a` = "Mon" ]];then
+            echo "::set-output name=name::bullseye"
+          elif [[ `date +%a` = "Tue" ]];then
+            echo "::set-output name=name::stretch"
+          else
+            echo "::set-output name=name::buster"
+          fi
+        shell: bash
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ steps.release.outputs.name }}
+
+      # Login against a Docker registry except on PR
+      # https://github.com/docker/login-action
+      - name: Log into registry ${{ env.REGISTRY }}
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set activated date
+        id: date
+        run: |
+          date +%Y%m%d | xargs -I{} echo "::set-output name=current::{}"
+        shell: bash
+
+      # Extract metadata (tags, labels) for Docker
+      # https://github.com/docker/metadata-action
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha
+            type=raw,value=${{ steps.release.outputs.name }}-${{ steps.date.outputs.current }}
+            type=raw,value=${{ steps.release.outputs.name }}
+
+      # Build and push Docker image with Buildx (don't push on PR)
+      # https://github.com/docker/build-push-action
+      - name: Build and push Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            RELEASE=${{ steps.release.outputs.name }}
+

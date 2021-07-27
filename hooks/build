@@ -1,0 +1,20 @@
+#!/bin/sh
+
+NEW_IMAGE=ghcr.io/frost-tb-voo/debian-japanese
+DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+cd ${DIR}/..
+
+if [[ -z ${RELEASE} ]]; then
+    RELEASE=stretch
+fi
+
+docker pull debian:${RELEASE}
+docker build -t ${NEW_IMAGE}:${RELEASE} \
+ --build-arg VCS_REF=`git rev-parse --short HEAD` \
+ --build-arg RELEASE=${RELEASE} \
+ .
+
+docker tag ${NEW_IMAGE} ${NEW_IMAGE}:local
+docker images ${NEW_IMAGE}
+

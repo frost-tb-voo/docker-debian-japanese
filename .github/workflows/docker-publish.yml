@@ -7,7 +7,7 @@ name: Docker
 
 on:
   push:
-    branches: [ buster, jessie, stretch ]
+    branches: [ buster, stretch, bullseye ]
     paths-ignore:
       - LICENSE
       - README.md
@@ -18,7 +18,7 @@ on:
       - .git
       - hooks
   pull_request:
-    branches: [ buster, jessie, stretch ]
+    branches: [ buster, stretch, bullseye ]
     paths-ignore:
       - LICENSE
       - README.md

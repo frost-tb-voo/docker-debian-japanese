@@ -6,7 +6,7 @@ services:
   - docker
 
 env:
-  - RELEASE=buster
+  - RELEASE=stretch
 
 script:
 - bash build
